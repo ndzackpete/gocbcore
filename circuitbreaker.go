@@ -73,7 +73,6 @@ func (ncb *noopCircuitBreaker) CanaryTimeout() time.Duration {
 }
 
 type lazyCircuitBreaker struct {
-	state                    uint32
 	windowStart              int64
 	sleepWindow              int64
 	rollingWindow            int64
@@ -85,6 +84,10 @@ type lazyCircuitBreaker struct {
 	openedAt                 int64
 	sendCanaryFn             func()
 	completionCallback       CircuitBreakerCallback
+
+	// Needs to be 64-bit aligned
+	// https://pkg.go.dev/sync/atomic#pkg-note-BUG
+	state uint32
 }
 
 func newLazyCircuitBreaker(config CircuitBreakerConfig, canaryFn func()) *lazyCircuitBreaker {
