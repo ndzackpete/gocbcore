@@ -1,4 +1,4 @@
-module github.com/couchbase/gocbcore/v10
+module github.com/ndzackpete/gocbcore/v10
 
 require (
 	github.com/couchbaselabs/gocaves/client v0.0.0-20211209111208-6db33aa50187
